@@ -37,7 +37,6 @@ export default function useAxios() {
                 refreshToken,
               }
             );
-            console.log(response);
             const { token } = response.data;
             setAuth({ ...auth, authToken: token });
             originalRequest.headers.Authorization = `Bearer ${token}`;
@@ -53,7 +52,7 @@ export default function useAxios() {
     // cleanup function
     return () => {
       instance.interceptors.request.eject(requestInterceptor);
-      instance.interceptors.request.eject(responseInterceptor);
+      instance.interceptors.response.eject(responseInterceptor);
     };
   }, [auth.authToken]);
 
